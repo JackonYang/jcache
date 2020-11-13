@@ -4,7 +4,7 @@ import os
 import pickle
 
 
-JCACHE_ROOT_DIR = os.getenv('JCACHE_ROOT_DIR', '.jcache-data')
+JCACHE_ROOT_DIR = os.getenv('JCACHE_ROOT_DIR', '/tmp/jcache-data')
 
 
 def md5(s):
@@ -19,14 +19,14 @@ def cache_key(f, *args, **kwargs):
         os.makedirs(JCACHE_ROOT_DIR)
 
     s = '%s-%s-%s' % (f.__name__, str(args), str(kwargs))
-    return os.path.join(JCACHE_ROOT_DIR, '%s.p' % md5(s))
+    return os.path.join(JCACHE_ROOT_DIR, f.__name__, '%s.p' % md5(s))
 
 
 def cache(f):
     def wrap(*args, **kwargs):
         fn = cache_key(f, *args, **kwargs)
         if os.path.exists(fn):
-            print 'loading cache'
+            # print 'loading cache'
             with open(fn, 'rb') as fr:
                 return pickle.load(fr)
 

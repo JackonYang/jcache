@@ -2,7 +2,7 @@ from setuptools import setup
 
 
 setup(name='jcache',
-      version='0.1',
+      version='0.2',
       description=('a library that can cache the return of a function '
                    'to avoid repeated computing'),
       url='https://github.com/JackonYang/jcache',
